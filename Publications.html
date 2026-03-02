@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dr. Amit Sawant – Advisory Services</title>
+<title>Amit Sawant – Portfolio Archive</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -11,7 +11,6 @@
         font-family: "Inter", Arial, sans-serif;
         background: #f7f7f7;
         color: #222;
-        line-height: 1.6;
     }
 
     header {
@@ -20,85 +19,90 @@
         padding: 60px 20px;
         text-align: center;
     }
-
     header h1 {
         margin: 0;
-        font-size: 40px;
+        font-size: 36px;
         font-weight: 700;
     }
-
-    nav {
-        background: #800000;
-        padding: 12px 20px;
-        text-align: center;
+    header p {
+        margin-top: 10px;
+        font-size: 18px;
+        opacity: 0.9;
     }
 
-    nav a {
-        color: white;
-        margin: 0 18px;
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    .filters input, .filters select {
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #800000;
+    }
+    .meta {
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #555;
+    }
+    .card a {
+        color: #0645AD;
         text-decoration: none;
         font-weight: 600;
-        font-size: 16px;
     }
-
-    nav a:hover {
+    .card a:hover {
         text-decoration: underline;
-    }
-
-    .container {
-        max-width: 1000px;
-        margin: 40px auto;
-        background: white;
-        padding: 35px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    img {
-        border-radius: 6px;
-    }
-
-    h2, h3 {
-        color: #800000;
-        margin-top: 40px;
-        border-bottom: 2px solid #800000;
-        padding-bottom: 5px;
-    }
-
-    li {
-        margin-bottom: 8px;
-    }
-
-    table td {
-        padding: 10px;
-        vertical-align: middle;
     }
 
     footer {
         text-align: center;
         padding: 25px;
-        color: #666;
         font-size: 14px;
+        color: #666;
     }
 </style>
-</head>
 
+</head>
 <body>
 
 <header>
-    <h1>Publications, Talks & Media</h1>
+    <h1>Amit Sawant – Publications, Talks & Media</h1>
     <p>Complete archive of presentations, papers, podcasts, panels, and more.</p>
 </header>
-
-<nav>
-    <a href="index.html">Home</a>
-    <a href="Advisory_Services.html">Advisory Services</a>
-    <a href="Portfolio.html">Portfolio</a>
-    <a href="Leadership.html">Leadership</a>
-    <a href="Publications.html">Publications</a>
-    <a href="Resources.html">Resources</a>
-</nav>
-<body>
 
 <div class="filters">
     <input type="text" id="search" placeholder="Search by title, description, or author…">
@@ -111,6 +115,10 @@
 </div>
 
 <div class="grid" id="cardGrid"></div>
+
+<footer>
+    © Amit Sawant — Portfolio Archive
+</footer>
 
 <script>
 /* -----------------------------
@@ -271,7 +279,7 @@ renderCards(items);
 </script>
 
 <footer>
-    © Amit Sawant — Webpage
+    © Amit Sawant — Portfolio Archive
 </footer>
 
 </body>
