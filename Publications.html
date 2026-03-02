@@ -14,6 +14,7 @@
         line-height: 1.6;
     }
 
+    /* Updated Top Banner Style */
     header {
         background: linear-gradient(135deg, #800000, #4d0000);
         color: white;
@@ -27,6 +28,13 @@
         font-weight: 700;
     }
 
+    header p {
+        margin-top: 10px;
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    /* Updated Navigation Style */
     nav {
         background: #800000;
         padding: 12px 20px;
@@ -145,6 +153,9 @@
 <div class="grid" id="cardGrid"></div>
 
 <script>
+/* -----------------------------
+   DATASET
+--------------------------------*/
 const items = [
     {no:74,cat:"Presentation",year:2024,title:"How to be a Rockstar People Leader and Build High-Performing Product Teams? (upcoming)",link:"",authors:"Sawant, Amit",desc:""},
     {no:73,cat:"Presentation",year:2024,title:"How to Effectively Prepare for Product Manager Interviews? (upcoming)",link:"",authors:"Sawant, Amit",desc:""},
@@ -205,21 +216,29 @@ const items = [
     {no:18,cat:"Tool Demonstration",year:2007,title:"SoftArchViz: A Software Architecture Visualization Tool",link:"https://www.dropbox.com/s/7au6qtdmw9sxe9b/VISSOFT_2007_tool_demo.pdf",authors:"Sawant, Amit; Bali, Naveen",desc:"VISSOFT 2007"}
 ];
 
+/* -----------------------------
+   BUILD FILTER OPTIONS
+--------------------------------*/
 function populateFilters() {
     const categorySet = new Set();
     const yearSet = new Set();
+
     items.forEach(item => {
-        categorySet.add(item.cat);
-        yearSet.add(item.year);
+        if (item.cat) categorySet.add(item.cat.trim());
+        if (item.year) yearSet.add(item.year);
     });
+
     const categoryFilter = document.getElementById("categoryFilter");
     const yearFilter = document.getElementById("yearFilter");
+
+    // UNIQUE CATEGORIES ONLY - NO LIMIT
     [...categorySet].sort().forEach(cat => {
         const opt = document.createElement("option");
         opt.value = cat;
         opt.textContent = cat;
         categoryFilter.appendChild(opt);
     });
+
     [...yearSet].sort((a,b)=>b-a).forEach(year => {
         const opt = document.createElement("option");
         opt.value = year;
@@ -228,6 +247,9 @@ function populateFilters() {
     });
 }
 
+/* -----------------------------
+   RENDER CARDS
+--------------------------------*/
 function renderCards(data) {
     const grid = document.getElementById("cardGrid");
     grid.innerHTML = "";
@@ -249,6 +271,9 @@ function renderCards(data) {
     });
 }
 
+/* -----------------------------
+   FILTER + SEARCH LOGIC
+--------------------------------*/
 function applyFilters() {
     const searchText = document.getElementById("search").value.toLowerCase();
     const category = document.getElementById("categoryFilter").value;
