@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dr. Amit Sawant – Advisory Services</title>
+<title>Dr. Amit Sawant – Publications</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Modern executive font -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
     :root {
         --logo-blue: #003366;      /* Primary Navy from Logo */
         --logo-gold: #FFD700;      /* Primary Gold from Logo */
-        --midnight-slate: #1B2631; /* Blue-based Neutral */
+        --midnight-slate: #1B2631; /* Better Neutral: Midnight Slate */
         --bg-subtle: #F8FAFC;      /* Light background */
         --text-dark: #2C3E50;      /* Softened dark text */
     }
@@ -23,7 +24,7 @@
         line-height: 1.6;
     }
 
-    /* --- BRANDED TIGHTER BANNER --- */
+    /* --- SLEEK TIGHTER BANNER --- */
     header {
         background: linear-gradient(135deg, #001f3f 0%, var(--logo-blue) 100%);
         color: white;
@@ -61,7 +62,7 @@
         letter-spacing: -0.3px;
     }
 
-    /* --- SLEEK NAV BAR --- */
+    /* --- SLEEK NAV BAR (Midnight Slate) --- */
     nav {
         background: var(--midnight-slate);
         padding: 0 5%;
@@ -94,49 +95,88 @@
         border-bottom: 3px solid var(--logo-gold);
     }
 
-    /* --- CONTENT AREA --- */
-    .container {
-        max-width: 1000px;
-        margin: 40px auto;
+    /* --- FILTERS --- */
+    .filter-bar {
         background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        padding: 18px 5%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        border-bottom: 1px solid #edf2f7;
     }
 
-    h3 {
+    .filter-bar input, .filter-bar select {
+        padding: 10px 15px;
+        border: 2px solid #edf2f7;
+        border-radius: 6px;
+        font-family: inherit;
+        flex: 1;
+        min-width: 180px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .filter-bar input:focus {
+        border-color: var(--logo-blue);
+    }
+
+    /* --- PUBLICATIONS GRID --- */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        padding: 25px 5%;
+    }
+
+    .card {
+        background: white;
+        border-radius: 10px;
+        padding: 22px;
+        border-top: 4px solid var(--logo-blue);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,51,102,0.1);
+        border-top-color: var(--logo-gold);
+    }
+
+    .card h3 {
+        margin: 0 0 10px 0;
+        font-size: 17px;
         color: var(--logo-blue);
-        border-bottom: 2px solid #edf2f7;
-        padding-bottom: 8px;
-        margin-top: 35px;
-        font-size: 22px;
+        line-height: 1.4;
     }
 
-    ul {
-        padding-left: 20px;
-        list-style-type: square;
-    }
-
-    li {
-        margin-bottom: 12px;
-    }
-
-    a {
-        color: var(--logo-blue);
+    .card a {
+        color: inherit;
         text-decoration: none;
-        font-weight: 600;
     }
 
-    a:hover {
+    .card a:hover {
         text-decoration: underline;
+        color: var(--logo-blue);
     }
 
-    img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        display: block;
-        margin: 20px auto;
+    .meta {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #718096;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #f7fafc;
+        padding-bottom: 6px;
+    }
+
+    .desc {
+        font-size: 13.5px;
+        color: #4a5568;
     }
 
     footer {
