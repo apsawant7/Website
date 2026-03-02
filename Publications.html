@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Amit Sawant – Portfolio Archive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Inter", Arial, sans-serif;
+        background: #f7f7f7;
+        color: #222;
+    }
+
+    header {
+        background: linear-gradient(135deg, #800000, #4d0000);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 36px;
+        font-weight: 700;
+    }
+    header p {
+        margin-top: 10px;
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    .filters input, .filters select {
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #800000;
+    }
+    .meta {
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #555;
+    }
+    .card a {
+        color: #0645AD;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .card a:hover {
+        text-decoration: underline;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>Amit Sawant – Publications, Talks & Media</h1>
+    <p>Complete archive of presentations, papers, podcasts, panels, and more.</p>
+</header>
+
+<div class="filters">
+    <input type="text" id="search" placeholder="Search by title, description, or author…">
+    <select id="categoryFilter">
+        <option value="">All Categories</option>
+    </select>
+    <select id="yearFilter">
+        <option value="">All Years</option>
+    </select>
+</div>
+
+<div class="grid" id="cardGrid"></div>
+
+<footer>
+    © Amit Sawant — Portfolio Archive
+</footer>
+
+<script>
+/* -----------------------------
+   FULL DATASET (74 → 18)
+--------------------------------*/
+const items = [
+    {no:74,cat:"Presentation",year:2024,title:"How to be a Rockstar People Leader and Build High-Performing Product Teams? (upcoming)",link:"",authors:"Sawant, Amit",desc:""},
+    {no:73,cat:"Presentation",year:2024,title:"How to Effectively Prepare for Product Manager Interviews? (upcoming)",link:"",authors:"Sawant, Amit",desc:""},
+    {no:72,cat:"Panel Discussion",year:2024,title:"Navigating the AI Revolution in Healthcare",link:"https://www.youtube.com/watch?v=140TsCnIqCI&t=17083s",authors:"Sawant, Amit",desc:"Health Tech 2024–2025 Summit"},
+    {no:71,cat:"Presentation",year:2024,title:"How Generative AI Is and Will Revolutionize Healthcare?",link:"https://www.youtube.com/watch?v=140TsCnIqCI&t=17083s",authors:"Sawant, Amit",desc:"Health Tech 2024–2025 Summit"},
+    {no:70,cat:"Presentation",year:2023,title:"Wearable Technology in Healthcare: Past, Present and Future",link:"https://www.youtube.com/watch?v=W4Wp8OoT4vA",authors:"Sawant, Amit",desc:"Health Tech 2023–2024 Summit"},
+    {no:69,cat:"Paper",year:2023,title:"ChatGPT and Healthcare: The Benefits, Uses and Ethics Behind It",link:"https://www.dropbox.com/s/8xq481gv7ixhc1j/ChatGPT_and_Healthcare_2023_paper.pdf",authors:"Sawant, Amit; Parikh, Aarushi",desc:""},
+    {no:68,cat:"Paper",year:2023,title:"Connected Devices and Biopsychosocial Health",link:"https://www.dropbox.com/s/4t41k5pwza5hfei/Connected_Health_Biopsychosocial_2023_paper.pdf",authors:"Sawant, Amit; Parikh, Aarushi",desc:""},
+    {no:67,cat:"Presentation",year:2022,title:"Smart Devices and Smart Clothing: the Future of Health Monitoring",link:"https://www.youtube.com/watch?v=76b52EWT0cw",authors:"Sawant, Amit",desc:"Health Tech 2022–2023 Summit"},
+    {no:66,cat:"Journal",year:2022,title:"Effectiveness of AI-Powered Passive Remote Patient Monitoring",link:"https://www.dropbox.com/s/91cniuawoup8pzw/HFSL_Clinics_in_Medicine_2022_paper.pdf",authors:"Sawant, Amit; Reed, Americus; Herman, Charles; Futoran, David; Sun, Lori",desc:"Clinics in Medicine 2022"},
+    {no:65,cat:"Panel Discussion",year:2022,title:"What Makes a Great Product Manager?",link:"https://www.youtube.com/watch?v=lwHvVHCm384",authors:"Sawant, Amit",desc:"ADPList Product Management Panel"},
+    {no:64,cat:"Podcast",year:2022,title:"The Future of Remote Health Monitoring",link:"https://www.youtube.com/watch?v=0lW7VVquXqw",authors:"Sawant, Amit",desc:"Diverse Conversations Podcast"},
+    {no:63,cat:"Discussion",year:2022,title:"Are you a data scientist? Opportunity in healthcare",link:"https://www.youtube.com/watch?v=2fKRykIDyTQ",authors:"Sawant, Amit",desc:"Hiring Wisdom Series"},
+    {no:62,cat:"Paper",year:2022,title:"Remote Patient Monitoring – Market & Competitive Analysis",link:"https://www.dropbox.com/s/2bcoyciaryfie8f/RPM_Market_Overview_2022.pdf",authors:"Sawant, Amit",desc:""},
+    {no:61,cat:"Blogs",year:2022,title:"Get A Sense: Blog Series",link:"https://medium.com/get-a-sense",authors:"Sawant, Amit",desc:"Aging, technology and healthcare"},
+    {no:60,cat:"Discussion",year:2022,title:"Is the mHealth Market Reaching Saturation?",link:"https://www.linkedin.com/video/event/urn:li:ugcPost:6894610276692361216/",authors:"Sawant, Amit",desc:"Storm3 LinkedIn Live"},
+    {no:59,cat:"Podcast",year:2021,title:"Remote Patient Monitoring with Dr. Amit Sawant",link:"https://reachtl.org/resources/f/remote-patient-monitoring-with-amit-sawant",authors:"Sawant, Amit",desc:"REACH Radio Podcast"},
+    {no:58,cat:"Paper",year:2021,title:"Industry Map: Wearable Healthcare Technology",link:"https://www.dropbox.com/s/knyne450f5yn46g/Wearable_Healthcare_RPM_Industry_Map.pdf",authors:"Sawant, Amit",desc:""},
+    {no:57,cat:"Presentation",year:2021,title:"Improving Quality of Care with AI-powered RPM",link:"https://www.youtube.com/watch?v=zbugicYCYC4&t=653s",authors:"Sawant, Amit",desc:"Health Tech 2021–2022 Summit"},
+    {no:56,cat:"Presentation",year:2021,title:"Lessons learned along my journey from Engineer → Product Leader",link:"https://www.youtube.com/watch?v=64V8F-_xQaA",authors:"Sawant, Amit",desc:"Institute of Product Leadership"},
+    {no:55,cat:"Presentation",year:2021,title:"Somatix: Remote Patient Monitoring Reimagined",link:"https://www.dropbox.com/s/5ran7drekdzzknr/Somatix_HLTH_2021_startup_pitch.pdf?dl=0",authors:"Somatix",desc:"HLTH 2021 Startup Pitch Winner"},
+    {no:54,cat:"Presentation",year:2021,title:"How wearable-enabled, AI-powered RPM improves care",link:"https://www.youtube.com/watch?v=zI9hTeMwYAU",authors:"Sawant, Amit",desc:"AI Guild Session"},
+    {no:53,cat:"Presentation",year:2021,title:"Growing Into a Better Leader: Dealing with Change",link:"https://www.youtube.com/watch?v=ccXHeJAbiDc&list=PLviHs0aJhWLaW9a2K6vh2egYqepmCvRzw&index=8",authors:"Sawant, Amit",desc:"Plato Elevate 2021"},
+    {no:52,cat:"Marketing Collateral",year:2021,title:"Somatix Overview",link:"https://www.dropbox.com/s/qbgdk50kho38zmd/Somatix%20Overview.pdf",authors:"Somatix Team",desc:""},
+    {no:51,cat:"Press Release",year:2021,title:"Somatix Appoints Dr. Amit Sawant",link:"https://www.newswire.com/news/somatix-appoints-technology-veteran-dr-amit-sawant-as-its-first-chief-21392460",authors:"NewsWire",desc:""},
+    {no:50,cat:"Interview",year:2021,title:"Q&A with Dr. Amit Sawant",link:"https://www.dropbox.com/s/pv8e1vx7z7utxf8/Somatix%20and%20Amit%20Sawant%20-%20032021.mp4",authors:"Somatix Team",desc:""},
+    {no:49,cat:"Technology Consulting",year:2021,title:"Enable Sitike to invest in sustainable technology",link:"https://www.dropbox.com/s/wjo599pfazihyas/PennPAC%20Sitike%20Final%20Presentation.pdf",authors:"Sawant, Amit",desc:"Sitike Counseling Center"},
+    {no:48,cat:"Blog",year:2020,title:"What's New with Google Cloud Platform?",link:"https://medium.com/whats-next-for-cloud-service-providers/whats-new-with-google-cloud-platform-3852e3b3842a",authors:"Sawant, Amit",desc:""},
+    {no:47,cat:"Video",year:2020,title:"Amit Sawant: The SuperHero",link:"https://www.youtube.com/watch?v=Bauz7dKGGjY",authors:"Sawant, Amit",desc:"Tribute by Dell Technologies"},
+    {no:46,cat:"Presentation",year:2020,title:"How to Build Your Personal Brand?",link:"https://www.dropbox.com/s/mlj21bn7sq62q7q/Personal_Brand_D4S_2020.pptx",authors:"Sawant, Amit",desc:"Dress For Success"},
+    {no:45,cat:"Presentation",year:2019,title:"Introducing Dell EMC PowerProtect DD Series",link:"https://www.dropbox.com/s/nuo3bvbs4xpzsat/DTF%20NY%20DP%20breakout_final%20v2.pptx",authors:"Sawant, Amit",desc:"Dell Tech Forum NY"},
+    {no:44,cat:"Hackathon Project",year:2019,title:"Money Ballers: Grow Dell EMC Revenue",link:"https://www.dropbox.com/s/7l2ahyjord8cb1t/MoneyBallers_2019.pptx",authors:"Sawant, Amit",desc:"Dell Hackathon Winner"},
+    {no:43,cat:"Blog",year:2019,title:"Data Domain OS 6.2 – Faster Data Protection",link:"https://blog.dellemc.com/en-us/data-domain-os-6-2-faster-data-protection-expanded-cloud-ecosystem-greater-flexibility/",authors:"Sawant, Amit",desc:"Dell Technologies"},
+    {no:42,cat:"Business Strategy Consulting",year:2017,title:"Public Cloud Security for Palo Alto Networks",link:"https://www.dropbox.com/s/l4v01yfmyq1r7yv/NA%20Public%20Cloud.pdf",authors:"Sawant, Amit",desc:"Wharton School"},
+    {no:41,cat:"Marketing Strategy",year:2017,title:"Marketing Strategy for Akron Biotech",link:"https://www.dropbox.com/s/gkawfa6b1na62kv/Akron%20Biotech%20-%20Marketing%20Strategy.pptx",authors:"Sawant, Amit",desc:"Akron Biotech"},
+    {no:40,cat:"Product Design",year:2017,title:"StirMagic: The Automated Self-Stirrer",link:"https://www.dropbox.com/s/ezkk9lwcp6bbgij/StirMagic_1pager_APS%20v2.pdf",authors:"Sawant, Amit",desc:"Wharton Product Design"},
+    {no:39,cat:"Product Design",year:2017,title:"Points Bay: Loyalty Points Optimizer",link:"https://www.dropbox.com/s/vi9heayuv0g3g3o/PointsBay_Product_Design.pptx",authors:"Sawant, Amit",desc:"Wharton Product Design"},
+    {no:38,cat:"Video",year:2015,title:"SteelFusion – Instant Provisioning & Recovery",link:"https://www.dropbox.com/s/023zkv6i081ymxd/Instant_Provisioning_audio.mp4",authors:"Sawant, Amit",desc:"Riverbed Technology"},
+    {no:37,cat:"White Paper",year:2015,title:"Orchestrating a Successful Strategy for Branch Infrastructure",link:"https://www.dropbox.com/s/tyr1zhigzqksrlh/Orchestrating_a_Successful_Strategy_for_Ideal_Branch_Converged_Infrastructure_2015.pdf",authors:"Sawant, Amit",desc:"Riverbed Technology"},
+    {no:36,cat:"Solution Brief",year:2015,title:"Rethink Branch IT, Think Zero Branch IT",link:"https://www.dropbox.com/s/8987him12f1u21j/SteelFusion_Solution_Brief_KG041615.pdf",authors:"Sawant, Amit",desc:"Riverbed Technology"},
+    {no:35,cat:"Infographic",year:2013,title:"NetApp's Data Storage Play at Super Bowl XLVII",link:"https://www.dropbox.com/s/le46frpwo2y3hsk/SuperBowl_47_2013.pdf",authors:"Sawant, Amit",desc:"NetApp"},
+    {no:34,cat:"Video",year:2013,title:"Data Protection & Visualization Tools",link:"https://www.dropbox.com/sh/oo982ksa8djeftu/AABELL9yN1sLA0qRmffo-uAxa",authors:"Sawant, Amit",desc:"NetApp"},
+    {no:33,cat:"Journal",year:2012,title:"On the Limits of Resolution and Visual Angle",link:"https://www.dropbox.com/s/1hjimafoi9p9en0/TAP_2012_paper.pdf",authors:"Sawant, Amit; Healey, Christopher",desc:"TAP 2012"},
+    {no:32,cat:"Paper",year:2011,title:"A Visualization Approach for FORTUNE 100 Stocks",link:"https://www.dropbox.com/s/j0ua1wb1kpnia5h/ICADABAI_2011_paper.pdf",authors:"Sawant, Amit",desc:"ICADABAI 2011"},
+    {no:31,cat:"Paper",year:2010,title:"GradeViz: Visual Representation of Student Grades",link:"https://www.dropbox.com/s/eoksw3p2nx5gcsi/FECS_2010_paper.pdf",authors:"Sawant, Amit",desc:"FECS 2010"},
+    {no:30,cat:"Presentation",year:2009,title:"Examples of Multi-Dimensional Visualization",link:"https://www.dropbox.com/s/edctktvfylr0irs/CMG_2009_presentation2_abstract.pdf.pdf",authors:"Sawant, Amit",desc:"CMG 2009"},
+    {no:29,cat:"Paper",year:2009,title:"StockViz: Analyzing the Trend of Stocks in Major Auto, Oil, Consumer, and Technology Companies",link:"https://www.dropbox.com/s/5n73jxrpdnrl3hi/MSV_2009_paper.pdf",authors:"Sawant, Amit",desc:"MSV 2009"},
+    {no:28,cat:"Presentation",year:2009,title:"Information Visualization: A View From 30,000 Feet",link:"",authors:"Sawant, Amit",desc:"Spring 2009 Southern CMG Presentation"},
+    {no:27,cat:"Journal",year:2009,title:"AmazonViz: Visualizing Amazon.com Purchase Orders",link:"https://www.dropbox.com/s/sga3pkqqvqvvce8/crossroads_amazonviz_2009_paper.pdf",authors:"Sawant, Amit; Healey, Christopher; Chen, Dongfeng; Chirkova, Rada",desc:"Crossroads 2009"},
+    {no:26,cat:"Paper",year:2008,title:"GraphRun: Visual Analysis of Performance Workload Metrics on a Storage Server",link:"https://www.dropbox.com/s/c773rdwzpzl3yxp/CMG_2008_paper.pdf",authors:"Sawant, Amit; Larson, Phil",desc:"CMG 2008"},
+    {no:25,cat:"Journal",year:2008,title:"MultiVizArch: Multiple Graphical Layouts for Visualizing Software Architecture",link:"https://www.dropbox.com/s/7fthf2i9awy7gzi/crossroads_multivizarch_2008_paper.pdf",authors:"Sawant, Amit; Bali, Naveen",desc:"Crossroads 2008"},
+    {no:24,cat:"Paper",year:2008,title:"Visualizing Multidimensional Query Results Using Animation",link:"https://www.dropbox.com/s/el8ayrlffmfmmxr/VDA_2008_paper.pdf",authors:"Sawant, Amit; Healey, Christopher",desc:"VDA 2008"},
+    {no:23,cat:"Paper",year:2007,title:"ChipViz: Visualizing Memory Chip Test Data",link:"https://www.dropbox.com/s/7p4x2mp1jzsphra/ISVC_2007_paper.pdf",authors:"Sawant, Amit; Raina, Ravi; Healey, Christopher",desc:"ISVC 2007"},
+    {no:22,cat:"Journal",year:2007,title:"Visualizing Flow Data Using Assorted Glyphs",link:"https://www.dropbox.com/s/18lu0zopudaqgj6/SH2_2007.txt",authors:"Sawant, Amit; Healey, Christopher",desc:"Crossroads 2007"},
+    {no:21,cat:"Poster",year:2007,title:"Level-of-Detail Visualization of Network Environments",link:"https://www.dropbox.com/s/ff9gzsranaole16/CACC_2007_poster.pdf",authors:"Sawant, Amit; Healey, Christopher",desc:"CACC Research Review"},
+    {no:20,cat:"Poster",year:2007,title:"Visualization of Astrophysics Flow Data",link:"https://www.dropbox.com/s/336jgta3vc828o5/nc_opt_ed_2007_poster.pdf",authors:"Sawant, Amit; Healey, Christopher",desc:"NC OPT-ED Alliance Day"},
+    {no:19,cat:"Presentation",year:2007,title:"Basic Fundamentals of Visualization",link:"https://www.dropbox.com/s/p2k1howwgb3b5qe/nc_opt_ed_2007_presentation_slides.pdf",authors:"Sawant, Amit",desc:"NC OPT-ED Alliance Day"},
+    {no:18,cat:"Tool Demonstration",year:2007,title:"SoftArchViz: A Software Architecture Visualization Tool",link:"https://www.dropbox.com/s/7au6qtdmw9sxe9b/VISSOFT_2007_tool_demo.pdf",authors:"Sawant, Amit; Bali, Naveen",desc:"VISSOFT 2007"}
+];
+/* -----------------------------
+   BUILD FILTER OPTIONS
+--------------------------------*/
+function populateFilters() {
+    const categorySet = new Set();
+    const yearSet = new Set();
+
+    items.forEach(item => {
+        categorySet.add(item.cat);
+        yearSet.add(item.year);
+    });
+
+    const categoryFilter = document.getElementById("categoryFilter");
+    const yearFilter = document.getElementById("yearFilter");
+
+    [...categorySet].sort().forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
+    });
+
+    [...yearSet].sort((a,b)=>b-a).forEach(year => {
+        const opt = document.createElement("option");
+        opt.value = year;
+        opt.textContent = year;
+        yearFilter.appendChild(opt);
+    });
+}
+
+/* -----------------------------
+   RENDER CARDS
+--------------------------------*/
+function renderCards(data) {
+    const grid = document.getElementById("cardGrid");
+    grid.innerHTML = "";
+
+    data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const titleHTML = item.link
+            ? `<a href="${item.link}" target="_blank">${item.title}</a>`
+            : item.title;
+
+        card.innerHTML = `
+            <h3>${titleHTML}</h3>
+            <div class="meta">
+                <strong>${item.cat}</strong> • ${item.year}<br>
+                <em>${item.authors}</em>
+            </div>
+            <p>${item.desc || ""}</p>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+/* -----------------------------
+   FILTER + SEARCH LOGIC
+--------------------------------*/
+function applyFilters() {
+    const searchText = document.getElementById("search").value.toLowerCase();
+    const category = document.getElementById("categoryFilter").value;
+    const year = document.getElementById("yearFilter").value;
+
+    const filtered = items.filter(item => {
+        const matchesSearch =
+            item.title.toLowerCase().includes(searchText) ||
+            item.desc.toLowerCase().includes(searchText) ||
+            item.authors.toLowerCase().includes(searchText);
+
+        const matchesCategory = category ? item.cat === category : true;
+        const matchesYear = year ? item.year.toString() === year : true;
+
+        return matchesSearch && matchesCategory && matchesYear;
+    });
+
+    renderCards(filtered);
+}
+
+/* -----------------------------
+   EVENT LISTENERS
+--------------------------------*/
+document.getElementById("search").addEventListener("input", applyFilters);
+document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+document.getElementById("yearFilter").addEventListener("change", applyFilters);
+
+/* -----------------------------
+   INITIALIZE PAGE
+--------------------------------*/
+populateFilters();
+renderCards(items);
+</script>
+
+<footer>
+    © Amit Sawant — Portfolio Archive
+</footer>
+
+</body>
+</html>
