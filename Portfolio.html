@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Dr. Amit Sawant – Webpage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+    /* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;          /* Uses percentage instead of fixed pixels */
+        padding: 20px;       /* Reduces padding for smaller screens */
+        margin: 20px auto;
+    }
+
+    img {
+        width: 100% !important; /* Forces images to shrink to fit the screen */
+        height: auto;
+    }
+
+    header h1 {
+        font-size: 18px;     /* Scales down text for the phone screen */
+    }
+
+    nav {
+        flex-wrap: wrap;     /* Allows menu items to wrap to a new line */
+    }
+
+    nav a {
+        padding: 10px;
+        font-size: 11px;
+    }
+}
     :root {
         --logo-blue: #003366;      /* Primary Navy from Logo */
         --logo-gold: #FFD700;      /* Primary Gold from Logo */
