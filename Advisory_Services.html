@@ -9,6 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+    /* Added to the desktop styles */
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.tagline {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--logo-gold); /* Uses your existing gold branding */
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Added to the @media (max-width: 768px) block */
+.tagline {
+    font-size: 12px !important; 
+}
+    
     /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
     .container {
@@ -207,7 +228,10 @@
         <div class="logo-container">
             <img src="images/Sawant_Group_logo.PNG" alt="Sawant Group Logo" class="logo-img">
         </div>
-        <h1>Advisory Services</h1>
+        <div class="header-text">
+            <h1>Advisory Services</h1>
+            <span class="tagline">"Improving Lives through Data and Innovation"</span>
+        </div>
     </div>
 </header>
 
